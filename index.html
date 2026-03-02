@@ -27,10 +27,13 @@
       <li><a href="noticias.html">Notícias</a></li>
       <li><a href="parceiros.html">Parceiros</a></li>
       <li><a href="produtos.html">Loja</a></li>
+      <li class="nav-mobile-sep"></li>
+      <li class="nav-mobile-only"><a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="nav-mobile-parceiro">🤝 Seja Parceiro</a></li>
+      <li class="nav-mobile-only"><a href="admin/login.html" class="nav-mobile-login">⚙️ Área Admin</a></li>
     </ul>
     <div class="nav-actions">
       <a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="btn-parceiro">🤝 Seja Parceiro</a>
-      <a href="admin/login.html" style="color:var(--gray-light);font-size:0.8rem;text-decoration:none;margin-left:8px">⚙️</a>
+      <a href="admin/login.html" class="btn-admin-nav">⚙️ Admin</a>
     </div>
     <button class="nav-toggle" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -121,7 +124,7 @@
 
 <!-- PRÓXIMOS JOGOS & ÚLTIMOS RESULTADOS -->
 <section class="section">
-  <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start">
+  <div class="games-results-grid">
     <!-- Próximos Jogos -->
     <div>
       <div class="section-header" style="text-align:left;margin-bottom:24px">
@@ -137,7 +140,7 @@
         <span class="section-tag">🏆 Resultados</span>
         <h2 class="section-title" style="font-size:1.8rem">Últimos <span>Resultados</span></h2>
       </div>
-      <div id="last-results" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div>
+      <div id="last-results" class="results-grid"></div>
     </div>
   </div>
 </section>

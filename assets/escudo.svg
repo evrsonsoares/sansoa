@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 260" width="220" height="260">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7A1F4A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3D0F27;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8BF3A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A87C1A;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#AEE3FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#59B8E0;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#00000080"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Shield shadow -->
+  <path d="M110,252 Q15,215 15,135 L15,42 L110,8 L205,42 L205,135 Q205,215 110,252Z"
+        fill="#00000040" transform="translate(3,5)"/>
+
+  <!-- Main shield -->
+  <path d="M110,248 Q12,212 12,132 L12,40 L110,6 L208,40 L208,132 Q208,212 110,248Z"
+        fill="url(#shieldGrad)" filter="url(#shadow)"/>
+
+  <!-- Gold border -->
+  <path d="M110,248 Q12,212 12,132 L12,40 L110,6 L208,40 L208,132 Q208,212 110,248Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="4"/>
+
+  <!-- Inner gold border -->
+  <path d="M110,234 Q26,200 26,128 L26,52 L110,22 L194,52 L194,128 Q194,200 110,234Z"
+        fill="none" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
+
+  <!-- Top section - Blue band -->
+  <path d="M26,52 L110,22 L194,52 L194,90 L26,90 Z"
+        fill="url(#blueGrad)" opacity="0.85"/>
+
+  <!-- Middle diagonal divider - Gold line -->
+  <line x1="26" y1="90" x2="194" y2="90" stroke="url(#goldGrad)" stroke-width="3"/>
+
+  <!-- Stars top -->
+  <text x="110" y="76" font-family="serif" font-size="14" fill="url(#goldGrad)" text-anchor="middle" filter="url(#glow)">★ ★ ★</text>
+
+  <!-- Shield inner logo area -->
+  <!-- Football icon in center -->
+  <circle cx="110" cy="148" r="32" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+  <!-- Simplified ball pentagons -->
+  <polygon points="110,120 120,130 117,143 103,143 100,130" fill="#2a0f1a" opacity="0.6" stroke="url(#goldGrad)" stroke-width="1"/>
+  <polygon points="110,120 100,130 92,125 93,111 103,107" fill="#2a0f1a" opacity="0.4" stroke="url(#goldGrad)" stroke-width="1"/>
+  <polygon points="110,120 120,130 128,125 127,111 117,107" fill="#2a0f1a" opacity="0.4" stroke="url(#goldGrad)" stroke-width="1"/>
+  <circle cx="110" cy="148" r="32" fill="none" stroke="url(#goldGrad)" stroke-width="2.5"/>
+
+  <!-- Team initials in the ball area -->
+  <text x="110" y="154" font-family="'Georgia', serif" font-size="18" font-weight="bold"
+        fill="url(#goldGrad)" text-anchor="middle" filter="url(#glow)">OD'V</text>
+
+  <!-- Bottom text band -->
+  <rect x="30" y="192" width="160" height="28" rx="4" fill="#00000040"/>
+
+  <!-- Team name -->
+  <text x="110" y="207" font-family="'Arial Black', 'Arial', sans-serif" font-size="8.5"
+        font-weight="900" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="1.5"
+        filter="url(#glow)">OUZADIA D'VILLA</text>
+  <text x="110" y="218" font-family="'Arial Black', 'Arial', sans-serif" font-size="7"
+        font-weight="700" fill="url(#blueGrad)" text-anchor="middle" letter-spacing="2">FUTEBOL CLUBE</text>
+
+  <!-- Founding year bottom -->
+  <text x="110" y="238" font-family="'Georgia', serif" font-size="8"
+        fill="url(#goldGrad)" text-anchor="middle" opacity="0.8">IBIRUBÁ - RS</text>
+</svg>

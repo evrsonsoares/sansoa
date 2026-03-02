@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Admin - Ouzadia D'Villa FC</title>
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="icon" href="../assets/escudo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div id="sidebar-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99;backdrop-filter:blur(4px)"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <a href="../index.html" class="sidebar-brand" target="_blank">
+    <img src="../assets/escudo.svg" alt="Ouzadia">
+    <div class="sidebar-brand-text">
+      <div class="name">OUZADIA D'VILLA</div>
+      <div class="sub">Painel Admin</div>
+    </div>
+  </a>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Visão Geral</div>
+    <button class="sidebar-link active" data-panel="dashboard" data-title="Dashboard" onclick="showPanel('dashboard')">
+      <span class="icon">📊</span> Dashboard
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Elenco</div>
+    <button class="sidebar-link" data-panel="jogadores" data-title="Gerenciar Jogadores" onclick="showPanel('jogadores')">
+      <span class="icon">👕</span> Jogadores
+    </button>
+    <button class="sidebar-link" data-panel="exjogadores" data-title="Ex-Jogadores" onclick="showPanel('exjogadores')">
+      <span class="icon">⭐</span> Ex-Jogadores
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Competições</div>
+    <button class="sidebar-link" data-panel="campeonatos" data-title="Campeonatos" onclick="showPanel('campeonatos')">
+      <span class="icon">🏆</span> Campeonatos
+    </button>
+    <button class="sidebar-link" data-panel="rodadas" data-title="Rodadas" onclick="showPanel('rodadas')">
+      <span class="icon">📅</span> Rodadas
+    </button>
+    <button class="sidebar-link" data-panel="jogos" data-title="Jogos & Resultados" onclick="showPanel('jogos')">
+      <span class="icon">⚽</span> Jogos & Resultados
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Conteúdo</div>
+    <button class="sidebar-link" data-panel="noticias" data-title="Notícias" onclick="showPanel('noticias')">
+      <span class="icon">📰</span> Notícias
+    </button>
+    <button class="sidebar-link" data-panel="galeria" data-title="Galeria & Álbuns" onclick="showPanel('galeria')">
+      <span class="icon">📷</span> Galeria
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Negócios</div>
+    <button class="sidebar-link" data-panel="parceiros" data-title="Parceiros" onclick="showPanel('parceiros')">
+      <span class="icon">🤝</span> Parceiros
+    </button>
+    <button class="sidebar-link" data-panel="produtos" data-title="Produtos & Loja" onclick="showPanel('produtos')">
+      <span class="icon">👗</span> Produtos
+    </button>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">👤</div>
+      <div class="sidebar-user-info">
+        <div class="user-name">Administrador</div>
+        <div class="user-role">⚙️ Admin</div>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="Auth.logout();window.location.href='login.html'">🚪 Sair</button>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div>
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
+      <span id="header-title" class="header-title">Dashboard</span>
+    </div>
+    <div class="header-actions">
+      <a href="../index.html" target="_blank" class="header-btn header-btn-outline">🌐 Ver Site</a>
+      <button onclick="exportData()" class="header-btn header-btn-outline">💾 Exportar</button>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="admin-panel active" id="panel-dashboard">
+      <div class="dashboard-grid">
+        <div class="dash-card">
+          <div class="dash-icon gold">👕</div>
+          <div class="dash-info"><div class="val" id="d-players">0</div><div class="lbl">Jogadores</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon green">🏆</div>
+          <div class="dash-info"><div class="val" id="d-wins">0</div><div class="lbl">Vitórias</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon blue">⚽</div>
+          <div class="dash-info"><div class="val" id="d-games">0</div><div class="lbl">Jogos</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon gold">📰</div>
+          <div class="dash-info"><div class="val" id="d-news">0</div><div class="lbl">Notícias</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon purple">🤝</div>
+          <div class="dash-info"><div class="val" id="d-partners">0</div><div class="lbl">Parceiros</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon red">👗</div>
+          <div class="dash-info"><div class="val" id="d-products">0</div><div class="lbl">Produtos</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon blue">🏅</div>
+          <div class="dash-info"><div class="val" id="d-championships">0</div><div class="lbl">Campeonatos</div></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon gold">⭐</div>
+          <div class="dash-info"><div class="val" id="d-ex">0</div><div class="lbl">Ex-Jogadores</div></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:20px">
+        <!-- Últimos Jogos -->
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <span class="admin-table-title">⚽ Últimos Resultados</span>
+            <button class="btn btn-add-new" onclick="showPanel('jogos')">Ver todos →</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead><tr><th>Data</th><th>Jogo</th><th>Placar</th><th>Resultado</th><th>Tipo</th></tr></thead>
+              <tbody id="d-recent-games"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Artilheiros -->
+        <div class="admin-table-wrap">
+          <div class="admin-table-header">
+            <span class="admin-table-title">🥅 Artilheiros</span>
+            <button class="btn btn-add-new" onclick="showPanel('jogadores')">Ver todos →</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead><tr><th>#</th><th>Jogador</th><th>Posição</th><th>⚽</th><th>🎯</th></tr></thead>
+              <tbody id="d-top-scorers"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div style="margin-top:20px;background:var(--dark2);border:1px solid rgba(201,162,39,0.12);border-radius:var(--radius);padding:20px">
+        <h3 style="color:var(--white);font-size:0.95rem;font-weight:800;margin-bottom:16px">⚡ Ações Rápidas</h3>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-add-new" onclick="openGameModal()">➕ Novo Jogo</button>
+          <button class="btn btn-add-new" onclick="openPlayerModal()">➕ Novo Jogador</button>
+          <button class="btn btn-add-new" onclick="openNewsModal()">➕ Nova Notícia</button>
+          <button class="btn btn-add-new" onclick="openPartnerModal()">➕ Novo Parceiro</button>
+          <button class="btn btn-add-new" onclick="openProductModal()">➕ Novo Produto</button>
+          <button class="btn btn-danger" onclick="resetData()" style="margin-left:auto">🔄 Restaurar Dados Demo</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== JOGADORES ===== -->
+    <div class="admin-panel" id="panel-jogadores">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">👕 Elenco Atual (2025)</span>
+          <button class="btn btn-add-new" onclick="openPlayerModal()">➕ Adicionar Jogador</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>Nome</th><th>Posição</th><th>⚽ Gols</th><th>🎯 Assists</th><th>🟨</th><th>🟥</th><th>Ações</th></tr></thead>
+            <tbody id="players-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== EX-JOGADORES ===== -->
+    <div class="admin-panel" id="panel-exjogadores">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">⭐ Ex-Jogadores</span>
+          <button class="btn btn-add-new" onclick="openExPlayerModal()">➕ Adicionar Ex-Jogador</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>#</th><th>Nome</th><th>Posição</th><th>Período</th><th>Ações</th></tr></thead>
+            <tbody id="ex-players-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== JOGOS ===== -->
+    <div class="admin-panel" id="panel-jogos">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">⚽ Jogos & Resultados</span>
+          <button class="btn btn-add-new" onclick="openGameModal()">➕ Adicionar Jogo</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Data</th><th>Confronto</th><th>Placar</th><th>Campeonato</th><th>Local</th><th>Tipo</th><th>Resultado</th><th>Ações</th></tr></thead>
+            <tbody id="games-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CAMPEONATOS ===== -->
+    <div class="admin-panel" id="panel-campeonatos">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">🏆 Campeonatos</span>
+          <button class="btn btn-add-new" onclick="openChampModal()">➕ Novo Campeonato</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Nome</th><th>Ano</th><th>Tipo</th><th>Formato</th><th>Times</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="champ-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RODADAS ===== -->
+    <div class="admin-panel" id="panel-rodadas">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">📅 Rodadas</span>
+          <button class="btn btn-add-new" onclick="openRoundModal()">➕ Nova Rodada</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Campeonato</th><th>Rodada</th><th>Início</th><th>Fim</th><th>Ações</th></tr></thead>
+            <tbody id="rounds-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NOTÍCIAS ===== -->
+    <div class="admin-panel" id="panel-noticias">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">📰 Notícias</span>
+          <button class="btn btn-add-new" onclick="openNewsModal()">➕ Nova Notícia</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Título</th><th>Categoria</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="news-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PARCEIROS ===== -->
+    <div class="admin-panel" id="panel-parceiros">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">🤝 Parceiros</span>
+          <button class="btn btn-add-new" onclick="openPartnerModal()">➕ Novo Parceiro</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Nome</th><th>Categoria</th><th>Telefone</th><th>Horário</th><th>Status</th><th>Ações</th></tr></thead>
+            <tbody id="partners-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PRODUTOS ===== -->
+    <div class="admin-panel" id="panel-produtos">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">👗 Produtos</span>
+          <button class="btn btn-add-new" onclick="openProductModal()">➕ Novo Produto</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Nome</th><th>Categoria</th><th>Preço</th><th>Estoque</th><th>Badge</th><th>Ações</th></tr></thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== GALERIA ===== -->
+    <div class="admin-panel" id="panel-galeria">
+      <div class="admin-table-wrap">
+        <div class="admin-table-header">
+          <span class="admin-table-title">📷 Álbuns de Fotos</span>
+          <button class="btn btn-add-new" onclick="openAlbumModal()">➕ Novo Álbum</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="admin-table">
+            <thead><tr><th>Nome</th><th>Categoria</th><th>Data</th><th>Fotos</th><th>Ações</th></tr></thead>
+            <tbody id="albums-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+</div><!-- /main-content -->
+
+<!-- ============================================================
+     MODALS
+============================================================ -->
+
+<!-- JOGADOR -->
+<div class="modal-overlay" id="player-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="player-modal-title">Jogador</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="player-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Nome Completo *</label>
+            <input type="text" class="form-input" name="name" placeholder="Ex: Gabriel Santos" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Número da Camisa *</label>
+            <input type="number" class="form-input" name="number" placeholder="9" min="1" max="99" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Posição *</label>
+            <select class="form-select" name="position" required>
+              <option value="">Selecionar...</option>
+              <option>Goleiro</option><option>Lateral Direito</option><option>Lateral Esquerdo</option>
+              <option>Zagueiro</option><option>Volante</option><option>Meia</option>
+              <option>Meia Armador</option><option>Ponta Direita</option><option>Ponta Esquerda</option>
+              <option>Centro-Avante</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Data de Nascimento</label>
+            <input type="date" class="form-input" name="birthDate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL da Foto</label>
+            <input type="url" class="form-input" name="photo" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gols</label>
+            <input type="number" class="form-input" name="goals" value="0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Assistências</label>
+            <input type="number" class="form-input" name="assists" value="0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cartões Amarelos</label>
+            <input type="number" class="form-input" name="yellowCards" value="0" min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cartões Vermelhos</label>
+            <input type="number" class="form-input" name="redCards" value="0" min="0">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Biografia / Observações</label>
+            <textarea class="form-textarea" name="bio" placeholder="Breve descrição do jogador..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="savePlayer()">💾 Salvar Jogador</button>
+    </div>
+  </div>
+</div>
+
+<!-- EX-JOGADOR -->
+<div class="modal-overlay" id="ex-player-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="ex-player-modal-title">Ex-Jogador</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="ex-player-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Nome *</label>
+            <input type="text" class="form-input" name="name" placeholder="Nome do ex-jogador" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Número</label>
+            <input type="number" class="form-input" name="number" min="1" max="99">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Posição</label>
+            <select class="form-select" name="position">
+              <option value="">Selecionar...</option>
+              <option>Goleiro</option><option>Lateral Direito</option><option>Lateral Esquerdo</option>
+              <option>Zagueiro</option><option>Volante</option><option>Meia</option>
+              <option>Meia Armador</option><option>Ponta Direita</option><option>Ponta Esquerda</option>
+              <option>Centro-Avante</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Período no Clube</label>
+            <input type="text" class="form-input" name="years" placeholder="Ex: 2019 - 2022">
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL da Foto</label>
+            <input type="url" class="form-input" name="photo" placeholder="https://...">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Descrição / Legado</label>
+            <textarea class="form-textarea" name="description" placeholder="Contribuições para o clube, conquistas..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveExPlayer()">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- JOGO -->
+<div class="modal-overlay" id="game-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="game-modal-title">Jogo</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="game-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Time da Casa *</label>
+            <input type="text" class="form-input" name="homeTeam" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Time Visitante *</label>
+            <input type="text" class="form-input" name="awayTeam" placeholder="Nome do adversário" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Data *</label>
+            <input type="date" class="form-input" name="date" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Horário</label>
+            <input type="time" class="form-input" name="time">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Campeonato</label>
+            <select class="form-select" name="championshipId" id="game-championship">
+              <option value="">Selecionar...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo de Jogo</label>
+            <select class="form-select" name="type">
+              <option value="campo">⚽ Campo</option>
+              <option value="salao">🏟️ Futsal/Salão</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" name="category">
+              <option value="competition">🏆 Campeonato</option>
+              <option value="friendly">🤝 Amistoso</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Local</label>
+            <input type="text" class="form-input" name="location" placeholder="Campo/Ginásio">
+          </div>
+          <div class="form-group form-span-2" style="flex-direction:row;align-items:center;gap:10px">
+            <input type="checkbox" name="played" id="game-played" style="width:18px;height:18px;accent-color:var(--gold)">
+            <label for="game-played" style="font-size:0.9rem;color:var(--text);cursor:pointer">✅ Jogo já realizado (marcar resultado)</label>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gols Casa</label>
+            <input type="number" class="form-input" name="homeScore" min="0" placeholder="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gols Visitante</label>
+            <input type="number" class="form-input" name="awayScore" min="0" placeholder="0">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Artilheiros (separados por vírgula)</label>
+            <input type="text" class="form-input" name="scorers" placeholder="Gabriel Santos, Everton Silva">
+            <span class="form-hint">Nome dos jogadores que marcaram gols pelo Ouzadia</span>
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Destaques / Resumo</label>
+            <textarea class="form-textarea" name="highlights" placeholder="Resumo do jogo, destaques, análise..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveGame()">💾 Salvar Jogo</button>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPEONATO -->
+<div class="modal-overlay" id="champ-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="champ-modal-title">Campeonato</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="champ-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Nome do Campeonato *</label>
+            <input type="text" class="form-input" name="name" placeholder="Ex: Copa Municipal de Ibirubá" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Ano</label>
+            <input type="text" class="form-input" name="year" placeholder="2025">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" name="type">
+              <option value="campo">⚽ Campo</option>
+              <option value="salao">🏟️ Futsal/Salão</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Formato</label>
+            <input type="text" class="form-input" name="format" placeholder="Ex: Grupos + Mata-mata">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Número de Times</label>
+            <input type="number" class="form-input" name="teams" min="2" placeholder="8">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-select" name="status">
+              <option value="active">✅ Ativo</option>
+              <option value="finished">🏁 Encerrado</option>
+            </select>
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-textarea" name="description" style="min-height:80px" placeholder="Descrição do campeonato..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveChamp()">💾 Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- RODADA -->
+<div class="modal-overlay" id="round-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="round-modal-title">Rodada</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="round-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Campeonato *</label>
+            <select class="form-select" name="championshipId" id="round-championship" required>
+              <option value="">Selecionar...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Número</label>
+            <input type="number" class="form-input" name="number" min="1" placeholder="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" name="name" placeholder="Rodada 1 / Semifinal...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Data Início</label>
+            <input type="date" class="form-input" name="startDate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Data Fim</label>
+            <input type="date" class="form-input" name="endDate">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveRound()">💾 Salvar Rodada</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTÍCIA -->
+<div class="modal-overlay" id="news-modal">
+  <div class="modal" style="max-width:720px">
+    <div class="modal-header">
+      <span class="modal-title" id="news-modal-title">Notícia</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="news-form">
+        <div class="form-grid cols-1" style="gap:16px">
+          <div class="form-group">
+            <label class="form-label">Título *</label>
+            <input type="text" class="form-input" name="title" placeholder="Título da notícia" required>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+            <div class="form-group">
+              <label class="form-label">Categoria</label>
+              <select class="form-select" name="category">
+                <option value="Resultados">⚽ Resultados</option>
+                <option value="Elenco">👤 Elenco</option>
+                <option value="Clube">🏟️ Clube</option>
+                <option value="Campeonatos">🏆 Campeonatos</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Data</label>
+              <input type="date" class="form-input" name="date">
+            </div>
+            <div class="form-group" style="flex-direction:row;align-items:center;gap:8px;margin-top:24px">
+              <input type="checkbox" name="published" id="news-published" style="width:16px;height:16px;accent-color:var(--gold)" checked>
+              <label for="news-published" style="font-size:0.88rem;color:var(--text);cursor:pointer">Publicado</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL da Imagem de Capa</label>
+            <input type="url" class="form-input" name="coverImage" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Conteúdo *</label>
+            <textarea class="form-textarea" name="content" style="min-height:200px" placeholder="Escreva o conteúdo completo da notícia..." required></textarea>
+            <span class="form-hint">Use parágrafos separados por linha em branco para melhor formatação.</span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveNews()">💾 Salvar Notícia</button>
+    </div>
+  </div>
+</div>
+
+<!-- PARCEIRO -->
+<div class="modal-overlay" id="partner-modal">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-header">
+      <span class="modal-title" id="partner-modal-title">Parceiro</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="partner-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Nome do Parceiro *</label>
+            <input type="text" class="form-input" name="name" placeholder="Nome do estabelecimento" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoria / Segmento</label>
+            <input type="text" class="form-input" name="category" placeholder="Ex: Padaria, Farmácia, Auto Peças">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Localização</label>
+            <input type="text" class="form-input" name="location" placeholder="Ibirubá, RS">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Telefone</label>
+            <input type="text" class="form-input" name="phone" placeholder="(54) 3455-0000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp (só números)</label>
+            <input type="text" class="form-input" name="whatsapp" placeholder="54934550000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Horário de Funcionamento</label>
+            <input type="text" class="form-input" name="hours" placeholder="Seg-Sex: 8h às 18h | Sáb: 8h às 12h">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Instagram (URL)</label>
+            <input type="url" class="form-input" name="instagram" placeholder="https://instagram.com/...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Facebook (URL)</label>
+            <input type="url" class="form-input" name="facebook" placeholder="https://facebook.com/...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL do Logo</label>
+            <input type="url" class="form-input" name="logo" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL da Foto de Capa</label>
+            <input type="url" class="form-input" name="coverImage" placeholder="https://...">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-textarea" name="description" placeholder="Breve descrição do parceiro e seus serviços..."></textarea>
+          </div>
+          <div class="form-group" style="flex-direction:row;align-items:center;gap:8px">
+            <input type="checkbox" name="active" id="partner-active" style="width:16px;height:16px;accent-color:var(--gold)" checked>
+            <label for="partner-active" style="cursor:pointer">Parceiro Ativo</label>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="savePartner()">💾 Salvar Parceiro</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUTO -->
+<div class="modal-overlay" id="product-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="product-modal-title">Produto</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="product-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Nome do Produto *</label>
+            <input type="text" class="form-input" name="name" placeholder="Ex: Camisa Oficial Bordô" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preço (R$) *</label>
+            <input type="number" class="form-input" name="price" step="0.01" min="0" placeholder="89.90" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Estoque</label>
+            <input type="number" class="form-input" name="stock" min="0" placeholder="50">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" name="category">
+              <option value="Vestuário">👕 Vestuário</option>
+              <option value="Acessórios">🧢 Acessórios</option>
+              <option value="Memorabilia">🏆 Memorabilia</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Badge</label>
+            <input type="text" class="form-input" name="badge" placeholder="Ex: Novo, Premium">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">URL da Imagem</label>
+            <input type="url" class="form-input" name="image" placeholder="https://...">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-textarea" name="description" placeholder="Descrição detalhada do produto..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveProduct()">💾 Salvar Produto</button>
+    </div>
+  </div>
+</div>
+
+<!-- ÁLBUM -->
+<div class="modal-overlay" id="album-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="album-modal-title">Álbum</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <form id="album-form">
+        <div class="form-grid">
+          <div class="form-group form-span-2">
+            <label class="form-label">Nome do Álbum *</label>
+            <input type="text" class="form-input" name="name" placeholder="Ex: Copa Municipal 2025" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" name="category">
+              <option value="Temporada">📅 Temporada</option>
+              <option value="Campeonato">🏆 Campeonato</option>
+              <option value="Evento">🎉 Evento</option>
+              <option value="Treinos">⚽ Treinos</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Data</label>
+            <input type="date" class="form-input" name="date">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">URL da Foto de Capa</label>
+            <input type="url" class="form-input" name="coverImage" placeholder="https://...">
+          </div>
+          <div class="form-group form-span-2">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-textarea" style="min-height:80px" name="description" placeholder="Descrição do álbum..."></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel modal-close">Cancelar</button>
+      <button class="btn btn-save" onclick="saveAlbum()">💾 Salvar Álbum</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOTOS DO ÁLBUM -->
+<div class="modal-overlay" id="photos-modal">
+  <div class="modal" style="max-width:800px">
+    <div class="modal-header">
+      <span class="modal-title">📷 Fotos: <span id="photos-album-name"></span></span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="current-album-id">
+      <div id="album-photos-list" style="margin-bottom:24px;min-height:100px"></div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(201,162,39,0.15);border-radius:10px;padding:16px">
+        <h4 style="color:var(--gold);font-size:0.85rem;font-weight:700;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px">➕ Adicionar Foto</h4>
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;align-items:end">
+          <div class="form-group">
+            <label class="form-label">URL da Foto *</label>
+            <input type="url" class="form-input" id="photo-url" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Legenda</label>
+            <input type="text" class="form-input" id="photo-caption" placeholder="Descrição...">
+          </div>
+        </div>
+        <button class="btn btn-save" onclick="addPhotoToAlbum()" style="margin-top:8px">➕ Adicionar Foto</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DIALOG -->
+<div class="confirm-dialog" id="confirm-dialog">
+  <div class="confirm-box">
+    <span class="confirm-icon">⚠️</span>
+    <div class="confirm-title">Confirmar Ação</div>
+    <div class="confirm-text" id="confirm-msg">Tem certeza?</div>
+    <div class="confirm-actions">
+      <button class="btn btn-cancel" id="confirm-no">Cancelar</button>
+      <button class="btn btn-danger" id="confirm-yes">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container"></div>
+
+<script src="../js/data.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

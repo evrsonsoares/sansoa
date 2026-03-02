@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Ouzadia D'Villa FC</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" href="../assets/escudo.svg" type="image/svg+xml">
+  <style>
+    body { display:flex; align-items:center; justify-content:center; min-height:100vh; background:var(--dark); padding:20px; }
+    .login-wrap { width:100%; max-width:440px; }
+    .login-card {
+      background:linear-gradient(135deg,var(--dark2) 0%,var(--dark3) 100%);
+      border:1px solid rgba(201,162,39,0.25);
+      border-radius:20px;
+      padding:40px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(201,162,39,0.06);
+      animation:slideUp 0.5s ease;
+    }
+    .login-header { text-align:center; margin-bottom:36px; }
+    .login-logo { width:90px; margin-bottom:16px; filter:drop-shadow(0 0 20px rgba(201,162,39,0.4)); }
+    .login-title { font-size:1.5rem; font-weight:900; color:var(--white); margin-bottom:4px; }
+    .login-sub { font-size:0.85rem; color:var(--gray-light); }
+    .form-group { margin-bottom:20px; }
+    .form-label { display:block; font-size:0.82rem; font-weight:700; color:var(--gold); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; }
+    .form-input {
+      width:100%; padding:13px 16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(201,162,39,0.2);
+      border-radius:10px; color:var(--text);
+      font-size:0.95rem; outline:none;
+      transition:all 0.3s ease;
+    }
+    .form-input:focus { border-color:var(--gold); background:rgba(201,162,39,0.05); box-shadow:0 0 0 3px rgba(201,162,39,0.1); }
+    .form-input::placeholder { color:var(--gray); }
+    .btn-login {
+      width:100%; padding:14px;
+      background:linear-gradient(135deg,var(--gold) 0%,var(--gold-dark) 100%);
+      color:var(--dark); border:none; border-radius:10px;
+      font-weight:900; font-size:1rem; cursor:pointer;
+      transition:all 0.3s ease; margin-top:8px;
+      box-shadow:0 6px 20px rgba(201,162,39,0.3);
+      display:flex; align-items:center; justify-content:center; gap:8px;
+    }
+    .btn-login:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(201,162,39,0.4); }
+    .error-msg { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:12px; color:#ef4444; font-size:0.88rem; margin-bottom:16px; display:none; }
+    .back-link { display:flex; align-items:center; justify-content:center; gap:6px; margin-top:20px; font-size:0.85rem; color:var(--gray-light); text-decoration:none; transition:color 0.2s; }
+    .back-link:hover { color:var(--gold); }
+    .particles-bg { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:-1; }
+  </style>
+</head>
+<body>
+  <div class="particles-bg" id="particles"></div>
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-header">
+        <img src="../assets/escudo.svg" alt="Escudo" class="login-logo">
+        <h1 class="login-title">Painel Administrativo</h1>
+        <p class="login-sub">Ouzadia D'Villa FC · Ibirubá RS</p>
+      </div>
+      <div class="error-msg" id="error-msg">❌ Email ou senha incorretos. Tente novamente.</div>
+      <form id="login-form">
+        <div class="form-group">
+          <label class="form-label">📧 E-mail</label>
+          <input type="email" class="form-input" id="email" placeholder="seu@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">🔒 Senha</label>
+          <input type="password" class="form-input" id="password" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-login">🔐 Entrar no Painel</button>
+      </form>
+      <a href="../index.html" class="back-link">← Voltar ao site</a>
+    </div>
+  </div>
+
+  <script src="../js/data.js"></script>
+  <script>
+    // Particles background
+    document.addEventListener('DOMContentLoaded', () => {
+      DB.init();
+      Utils.createParticles('particles', 20);
+
+      // Check already logged in
+      if (Auth.isAdmin()) window.location.href = 'painel.html';
+
+      document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const result = Auth.login(email, password);
+        if (result.success) {
+          document.querySelector('.btn-login').textContent = '✅ Entrando...';
+          setTimeout(() => window.location.href = 'painel.html', 500);
+        } else {
+          const err = document.getElementById('error-msg');
+          err.style.display = 'block';
+          err.style.animation = 'none';
+          setTimeout(() => err.style.animation = '', 10);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

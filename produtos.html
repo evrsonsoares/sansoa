@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja Oficial - Ouzadia D'Villa FC</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/escudo.svg" type="image/svg+xml">
+</head>
+<body data-page="produtos">
+
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/escudo.svg" alt="Ouzadia D'Villa FC">
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">OUZADIA D'VILLA</span>
+        <span class="nav-brand-sub">Futebol Clube · Ibirubá RS</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="jogos.html">Jogos</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="noticias.html">Notícias</a></li>
+      <li><a href="parceiros.html">Parceiros</a></li>
+      <li><a href="produtos.html" class="active">Loja</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro!" target="_blank" class="btn-parceiro">🤝 Seja Parceiro</a>
+    </div>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-content">
+    <span class="section-tag">👕 Loja Oficial</span>
+    <h1>Loja <span>Ouzadia D'Villa FC</span></h1>
+    <p>Vista as cores do clube! Produtos oficiais do Ouzadia D'Villa FC disponíveis para compra via WhatsApp.</p>
+    <div class="breadcrumb"><a href="index.html">Início</a><span>›</span><span>Loja Oficial</span></div>
+  </div>
+</div>
+
+<div class="section" style="max-width:1400px;margin:0 auto">
+
+  <!-- Como Comprar -->
+  <div style="background:linear-gradient(135deg,rgba(37,211,102,0.08) 0%,rgba(18,140,126,0.08) 100%);border:1px solid rgba(37,211,102,0.25);border-radius:var(--radius-lg);padding:24px;margin-bottom:36px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center">
+    <div style="font-size:2.5rem">💬</div>
+    <div>
+      <h3 style="font-weight:900;color:var(--white);margin-bottom:4px">Como comprar?</h3>
+      <p style="color:var(--gray-light);font-size:0.9rem">Adicione produtos ao carrinho ou clique em "Comprar" para ser redirecionado ao nosso WhatsApp. Simples, rápido e seguro!</p>
+    </div>
+    <a href="https://wa.me/54981156726?text=Olá!%20Gostaria%20de%20fazer%20um%20pedido%20na%20loja%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="btn-whatsapp" style="border-radius:10px;padding:12px 20px;white-space:nowrap">
+      💬 Ir para WhatsApp
+    </a>
+  </div>
+
+  <!-- Filtros por categoria -->
+  <div style="margin-bottom:28px">
+    <div class="filter-group">
+      <button class="filter-btn filter-cat-btn active" data-cat="all">Todos</button>
+      <button class="filter-btn filter-cat-btn" data-cat="Vestuário">👕 Vestuário</button>
+      <button class="filter-btn filter-cat-btn" data-cat="Acessórios">🧢 Acessórios</button>
+      <button class="filter-btn filter-cat-btn" data-cat="Memorabilia">🏆 Memorabilia</button>
+    </div>
+  </div>
+
+  <div id="products-grid" class="grid-4"></div>
+</div>
+
+<!-- Carrinho flutuante -->
+<button class="cart-btn" id="cart-btn">
+  🛒
+  <span class="cart-count">0</span>
+</button>
+
+<!-- Modal Carrinho -->
+<div class="modal-overlay" id="cart-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">🛒 Carrinho de Compras</span>
+      <button class="modal-close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="cart-items"></div>
+      <div id="cart-total" style="text-align:right;margin-top:16px;padding-top:16px;border-top:1px solid rgba(201,162,39,0.15)"></div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-direction:column">
+        <button class="btn-buy" id="cart-checkout" style="border-radius:10px;padding:14px;font-size:1rem;width:100%">
+          💬 Finalizar Pedido via WhatsApp
+        </button>
+        <button onclick="DB.clearCart();updateCartUI();document.getElementById('cart-modal').classList.remove('open')" style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#ef4444;padding:10px;border-radius:8px;cursor:pointer;font-weight:700">
+          🗑️ Limpar Carrinho
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="assets/escudo.svg" alt="Ouzadia D'Villa FC">
+        <div class="footer-logo-text">
+          <div class="name">OUZADIA D'VILLA FC</div>
+          <div class="sub">Ibirubá · RS · Est. 2018</div>
+        </div>
+      </div>
+      <p class="footer-desc">O Ouzadia D'Villa FC é o orgulho de Ibirubá, RS.</p>
+      <a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="btn-parceiro-big">💬 Seja Parceiro — WhatsApp</a>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="jogos.html">⚽ Jogos</a></li>
+        <li><a href="galeria.html">📷 Galeria</a></li>
+        <li><a href="noticias.html">📰 Notícias</a></li>
+        <li><a href="parceiros.html">🤝 Parceiros</a></li>
+        <li><a href="produtos.html">👕 Loja</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <div class="footer-contact-item"><span class="icon">📧</span>ouzadiafce@gmail.com</div>
+      <div class="footer-contact-item"><span class="icon">📱</span>(54) 98115-6726</div>
+      <div class="footer-contact-item"><span class="icon">📍</span>Ibirubá, RS</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <strong>Ouzadia D'Villa FC</strong> — Ibirubá, RS</p>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

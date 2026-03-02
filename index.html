@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ouzadia D'Villa FC - Ibirubá RS</title>
+  <meta name="description" content="Site oficial do Ouzadia D'Villa FC - Ibirubá, RS. Resultados, classificação, elenco, notícias e muito mais.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="assets/escudo.svg" type="image/svg+xml">
+</head>
+<body data-page="home">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/escudo.svg" alt="Ouzadia D'Villa FC">
+      <div class="nav-brand-text">
+        <span class="nav-brand-name">OUZADIA D'VILLA</span>
+        <span class="nav-brand-sub">Futebol Clube · Ibirubá RS</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Início</a></li>
+      <li><a href="jogos.html">Jogos</a></li>
+      <li><a href="galeria.html">Galeria</a></li>
+      <li><a href="noticias.html">Notícias</a></li>
+      <li><a href="parceiros.html">Parceiros</a></li>
+      <li><a href="produtos.html">Loja</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="btn-parceiro">🤝 Seja Parceiro</a>
+      <a href="admin/login.html" style="color:var(--gray-light);font-size:0.8rem;text-decoration:none;margin-left:8px">⚙️</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="hero-particles"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="section-tag" style="margin-bottom:16px">⚽ Ibirubá · RS · 2018</div>
+      <h1>
+        <span class="line1">Somos o</span>
+        <span class="line2">Ouzadia D'Villa FC</span>
+        <span class="line3">Paixão · Garra · Vitória</span>
+      </h1>
+      <p>O orgulho de Ibirubá! Lutamos em cada campo e ginásio, com coração, determinação e a torcida sempre ao nosso lado.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="num" id="stat-wins">0</span>
+          <span class="label">Vitórias</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num" id="stat-draws">0</span>
+          <span class="label">Empates</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num" id="stat-losses">0</span>
+          <span class="label">Derrotas</span>
+        </div>
+        <div class="hero-stat">
+          <span class="num" id="stat-goals">0</span>
+          <span class="label">Gols</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="jogos.html" class="btn-primary">⚽ Ver Jogos</a>
+        <a href="galeria.html" class="btn-secondary">📷 Galeria</a>
+      </div>
+    </div>
+    <div class="hero-shield">
+      <img src="assets/escudo.svg" alt="Escudo Ouzadia D'Villa FC" id="hero-shield">
+    </div>
+  </div>
+</section>
+
+<!-- STATS COUNTER -->
+<section class="section-full" style="background:linear-gradient(135deg,var(--bordo-dark) 0%,var(--dark2) 100%);border-top:1px solid rgba(201,162,39,0.2);border-bottom:1px solid rgba(201,162,39,0.2)">
+  <div class="section">
+    <div class="stats-grid">
+      <div class="stat-card wins">
+        <span class="icon">🏆</span>
+        <span class="val" data-counter="wins">0</span>
+        <span class="lbl">Vitórias em 2025</span>
+      </div>
+      <div class="stat-card draws">
+        <span class="icon">🤝</span>
+        <span class="val" data-counter="draws">0</span>
+        <span class="lbl">Empates</span>
+      </div>
+      <div class="stat-card losses">
+        <span class="icon">💪</span>
+        <span class="val" data-counter="losses">0</span>
+        <span class="lbl">Derrotas</span>
+      </div>
+      <div class="stat-card goals">
+        <span class="icon">⚽</span>
+        <span class="val" data-counter="goalsFor">0</span>
+        <span class="lbl">Gols Marcados</span>
+      </div>
+      <div class="stat-card">
+        <span class="icon">📅</span>
+        <span class="val" data-counter="total">0</span>
+        <span class="lbl">Jogos Disputados</span>
+      </div>
+      <div class="stat-card">
+        <span class="icon">📍</span>
+        <span class="val" style="font-size:1.4rem">IBÁ</span>
+        <span class="lbl">Ibirubá · RS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRÓXIMOS JOGOS & ÚLTIMOS RESULTADOS -->
+<section class="section">
+  <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:40px;align-items:start">
+    <!-- Próximos Jogos -->
+    <div>
+      <div class="section-header" style="text-align:left;margin-bottom:24px">
+        <span class="section-tag">📅 Agenda</span>
+        <h2 class="section-title" style="font-size:1.8rem">Próximos <span>Jogos</span></h2>
+      </div>
+      <div id="upcoming-games"></div>
+      <a href="jogos.html" class="btn-secondary" style="margin-top:16px;display:inline-flex">Ver todos os jogos →</a>
+    </div>
+    <!-- Últimos Resultados -->
+    <div>
+      <div class="section-header" style="text-align:left;margin-bottom:24px">
+        <span class="section-tag">🏆 Resultados</span>
+        <h2 class="section-title" style="font-size:1.8rem">Últimos <span>Resultados</span></h2>
+      </div>
+      <div id="last-results" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPEONATOS -->
+<div class="section-full">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-tag">🏅 Competições</span>
+      <h2 class="section-title">Campeonatos <span>2025</span></h2>
+      <p class="section-subtitle">Conheça todos os torneios que o Ouzadia D'Villa FC participa esta temporada.</p>
+      <div class="section-line"></div>
+    </div>
+    <div id="championships-home" class="grid-3" style="margin-bottom:32px"></div>
+  </div>
+</div>
+
+<!-- CLASSIFICAÇÃO -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-tag">📊 Tabela</span>
+    <h2 class="section-title">Classificação <span>Atual</span></h2>
+    <p class="section-subtitle">Acompanhe a posição do Ouzadia D'Villa FC nos campeonatos.</p>
+    <div class="section-line"></div>
+  </div>
+  <div style="max-width:800px;margin:0 auto">
+    <div id="classification-home"></div>
+    <div style="text-align:center;margin-top:20px">
+      <a href="jogos.html" class="btn-primary">Ver tabela completa</a>
+    </div>
+  </div>
+</section>
+
+<!-- NOTÍCIAS -->
+<div class="section-full">
+  <div class="section">
+    <div class="section-header">
+      <span class="section-tag">📰 Notícias</span>
+      <h2 class="section-title">Últimas <span>Notícias</span></h2>
+      <p class="section-subtitle">Fique por dentro de tudo que acontece no Ouzadia D'Villa FC.</p>
+      <div class="section-line"></div>
+    </div>
+    <div id="news-home" class="grid-3"></div>
+    <div style="text-align:center;margin-top:32px">
+      <a href="noticias.html" class="btn-primary">Ver todas as notícias</a>
+    </div>
+  </div>
+</div>
+
+<!-- SEJA PARCEIRO CTA -->
+<section style="padding:80px 20px;background:linear-gradient(135deg,var(--bordo-dark) 0%,var(--dark2) 100%);border-top:1px solid rgba(201,162,39,0.2);text-align:center">
+  <div style="max-width:700px;margin:0 auto">
+    <span class="section-tag">🤝 Parceria</span>
+    <h2 class="section-title" style="margin-top:12px">Seja um <span>Parceiro</span> do Clube!</h2>
+    <p class="section-subtitle" style="margin-bottom:36px">Junte-se a nós e faça parte desta história de vitórias. Apoie o futebol de Ibirubá e ganhe visibilidade para o seu negócio.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="btn-parceiro-big" style="max-width:320px">
+        💬 Seja Parceiro via WhatsApp
+      </a>
+      <a href="parceiros.html" class="btn-primary">Ver nossos parceiros</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="assets/escudo.svg" alt="Ouzadia D'Villa FC">
+        <div class="footer-logo-text">
+          <div class="name">OUZADIA D'VILLA FC</div>
+          <div class="sub">Ibirubá · RS · Est. 2018</div>
+        </div>
+      </div>
+      <p class="footer-desc">O Ouzadia D'Villa FC é um clube de futebol da cidade de Ibirubá, RS. Competindo em campo e no salão, com paixão e dedicação em cada partida.</p>
+      <a href="https://wa.me/54981156726?text=Olá!%20Quero%20ser%20parceiro%20do%20Ouzadia%20D'Villa%20FC!" target="_blank" class="btn-parceiro-big">💬 Seja Parceiro — WhatsApp</a>
+      <div class="footer-socials">
+        <a href="https://instagram.com/ouzadiadvilla" target="_blank" class="footer-social-btn" title="Instagram">📸</a>
+        <a href="https://facebook.com/ouzadiadvilla" target="_blank" class="footer-social-btn" title="Facebook">📘</a>
+        <a href="https://youtube.com" target="_blank" class="footer-social-btn" title="YouTube">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">🏠 Início</a></li>
+        <li><a href="jogos.html">⚽ Jogos & Resultados</a></li>
+        <li><a href="galeria.html">📷 Galeria</a></li>
+        <li><a href="noticias.html">📰 Notícias</a></li>
+        <li><a href="parceiros.html">🤝 Parceiros</a></li>
+        <li><a href="produtos.html">👕 Loja Oficial</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Campeonatos</h4>
+      <ul class="footer-links">
+        <li><a href="jogos.html">🏆 Copa Municipal</a></li>
+        <li><a href="jogos.html">🏆 Copa da Amizade</a></li>
+        <li><a href="jogos.html">🏟️ Salão Sete Estrelas</a></li>
+        <li><a href="jogos.html">⚽ Copa dos Bairros</a></li>
+        <li><a href="jogos.html">🤝 Amistosos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <div class="footer-contact-item"><span class="icon">📧</span><span>ouzadiafce@gmail.com</span></div>
+      <div class="footer-contact-item"><span class="icon">📱</span><span>(54) 98115-6726</span></div>
+      <div class="footer-contact-item"><span class="icon">📍</span><span>Ibirubá, RS - Brasil</span></div>
+      <div style="margin-top:16px">
+        <a href="https://wa.me/54981156726" target="_blank" class="btn-whatsapp" style="border-radius:8px;padding:10px 16px;font-size:0.85rem">
+          💬 WhatsApp do Clube
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <strong>Ouzadia D'Villa FC</strong> — Todos os direitos reservados | Ibirubá, RS</p>
+    <p>Desenvolvido com ❤️ para o <strong>Futebol de Ibirubá</strong></p>
+  </div>
+</footer>
+
+<div class="toast-container"></div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
